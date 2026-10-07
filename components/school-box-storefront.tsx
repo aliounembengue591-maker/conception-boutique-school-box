@@ -47,20 +47,20 @@ const kitContents: Record<string, string[]> = {
 }
 
 const builderProducts = [
-  { id: 'sac', group: 'Sacs', name: 'Sac à dos résistant', price: 9000 },
-  { id: 'sac-leger', group: 'Sacs', name: 'Sac à dos léger', price: 6500 },
-  { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500 },
-  { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000 },
-  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes', price: 1500 },
-  { id: 'stylos', group: 'Stylos', name: 'Lot de 6 stylos assortis', price: 1800 },
-  { id: 'crayons', group: 'Stylos', name: 'Crayons HB ×5 + gomme', price: 1200 },
-  { id: 'couleurs', group: 'Stylos', name: 'Crayons de couleur ×12', price: 2000 },
-  { id: 'geometrie', group: 'Géométrie', name: 'Kit de géométrie complet', price: 2500 },
-  { id: 'ardoise', group: 'Géométrie', name: 'Ardoise + feutres', price: 1500 },
-  { id: 'trousse', group: 'Trousses', name: 'Trousse scolaire', price: 2000 },
-  { id: 'pochettes', group: 'Trousses', name: 'Lot de pochettes', price: 1000 },
-  { id: 'lecture', group: 'Livres', name: 'Livre de lecture', price: 3000 },
-  { id: 'maths', group: 'Livres', name: 'Cahier d’activités de maths', price: 2500 },
+  { id: 'sac', group: 'Sacs', name: 'Sac à dos résistant', price: 9000, image: '/product-sac.png' },
+  { id: 'sac-leger', group: 'Sacs', name: 'Sac à dos léger', price: 6500, image: '/product-sac.png' },
+  { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500, image: '/product-cahiers.png' },
+  { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000, image: '/product-cahiers.png' },
+  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes', price: 1500, image: '/product-cahiers.png' },
+  { id: 'stylos', group: 'Stylos', name: 'Lot de 6 stylos assortis', price: 1800, image: '/product-stylos.png' },
+  { id: 'crayons', group: 'Stylos', name: 'Crayons HB ×5 + gomme', price: 1200, image: '/product-stylos.png' },
+  { id: 'couleurs', group: 'Stylos', name: 'Crayons de couleur ×12', price: 2000, image: '/product-stylos.png' },
+  { id: 'geometrie', group: 'Géométrie', name: 'Kit de géométrie complet', price: 2500, image: '/product-geometrie.png' },
+  { id: 'ardoise', group: 'Géométrie', name: 'Ardoise + feutres', price: 1500, image: '/product-geometrie.png' },
+  { id: 'trousse', group: 'Trousses', name: 'Trousse scolaire', price: 2000, image: '/product-trousse.png' },
+  { id: 'pochettes', group: 'Trousses', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png' },
+  { id: 'lecture', group: 'Livres', name: 'Livre de lecture', price: 3000, image: '/product-livres.png' },
+  { id: 'maths', group: 'Livres', name: 'Cahier d’activités de maths', price: 2500, image: '/product-livres.png' },
 ]
 
 const steps = [
@@ -168,7 +168,7 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
     <section id="sur-mesure" className="scroll-mt-24 bg-[#f5f8ff] py-20 sm:py-24">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-32">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> À votre façon</span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> �� votre façon</span>
           <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#1e3a8a] sm:text-4xl">Crée ton kit<br />sur mesure.</h2>
           <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez seulement ce qu’il vous faut. Ajoutez des fournitures à la carte et suivez votre budget en direct.</p>
           <div className="mt-8 rounded-3xl bg-[#1e3a8a] p-6 text-white shadow-xl shadow-blue-950/10">
@@ -189,9 +189,10 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
               <div className="mt-2 flex flex-col gap-3">
                 {builderProducts.filter((item) => item.group === group).map((item) => {
                   const checked = selected.includes(item.id)
-                  return <label key={item.id} className={`flex cursor-pointer items-start gap-3 rounded-2xl border p-3.5 transition ${checked ? 'border-[#1e3a8a] bg-[#f5f8ff]' : 'border-slate-100 hover:border-slate-300'}`}>
-                    <input type="checkbox" checked={checked} onChange={() => toggle(item.id)} className="mt-0.5 size-4 accent-[#1e3a8a]" />
-                    <span className="flex flex-1 items-start justify-between gap-2"><span className="text-[13px] font-semibold leading-snug text-slate-700">{item.name}</span><span className="shrink-0 text-xs font-bold text-[#1e3a8a]">{formatXof(item.price)} F</span></span>
+                  return <label key={item.id} className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-3 transition ${checked ? 'border-[#1e3a8a] bg-[#f5f8ff]' : 'border-slate-100 hover:border-slate-300'}`}>
+                    <input type="checkbox" checked={checked} onChange={() => toggle(item.id)} className="size-4 shrink-0 accent-[#1e3a8a]" />
+                    <Image src={item.image} alt="" width={56} height={56} unoptimized className="size-14 shrink-0 rounded-xl bg-[#f5f8ff] object-cover" />
+                    <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[13px] font-semibold leading-snug text-slate-700">{item.name}</span><span className="text-xs font-bold text-[#1e3a8a]">{formatXof(item.price)} F</span></span>
                   </label>
                 })}
               </div>
