@@ -161,3 +161,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+.schoolbox {
+  font-family: Arial, Helvetica, sans-serif;
+  font-feature-settings: 'ss01' on;
+  text-rendering: optimizeLegibility;
+}
+
+.schoolbox a,
+.schoolbox button,
+.schoolbox input {
+  -webkit-tap-highlight-color: transparent;
+}
+
+.schoolbox :focus-visible {
+  outline: 3px solid #fbbf24;
+  outline-offset: 3px;
+}
