@@ -71,7 +71,7 @@ const steps = [
 
 type CustomKit = { title: string; selections: string[]; unitPrice: number }
 type CartEntry = { key: string; productId?: string; quantity: number; customKit?: CustomKit }
-type CheckoutDetails = { parent: string; phone: string; address: string; grade: string; school: string; payment: string; promo: string }
+type CheckoutDetails = { parent: string; phone: string; address: string; grade: string; school: string; payment: string }
 
 function imageFor(product: SchoolBoxProduct) {
   return product.featuredImage?.url || fallbackImages[product.handle] || '/schoolbox-hero.png'
@@ -241,7 +241,6 @@ function CartDrawer({
       `Classe : ${details.grade || 'à renseigner'}`,
       `École : ${details.school || 'à renseigner'}`,
       `Paiement : ${details.payment}`,
-      details.promo ? `Code promo : ${details.promo}` : '',
     ].filter(Boolean).join('\n')
   }, [entries, total, details, byId])
 
@@ -288,7 +287,6 @@ function CartDrawer({
                 <label className="flex flex-col gap-1.5 text-xs font-semibold text-slate-700">École<input value={details.school} onChange={(e) => update('school', e.target.value)} placeholder="Nom de l’école" className="rounded-xl border border-slate-200 px-3 py-3 text-sm font-normal outline-none focus:border-[#1e3a8a] focus:ring-2 focus:ring-blue-100" /></label>
               </div>
               <fieldset className="flex flex-col gap-2"><legend className="mb-1 text-xs font-semibold text-slate-700">Mode de paiement</legend>{[['wave', 'Wave'], ['orange', 'Orange Money'], ['livraison', 'Paiement à la livraison']].map(([value, label]) => <label key={value} className={`flex cursor-pointer items-center gap-3 rounded-xl border px-3.5 py-3 text-sm font-semibold ${details.payment === value ? 'border-[#1e3a8a] bg-[#f5f8ff] text-[#1e3a8a]' : 'border-slate-200 text-slate-700'}`}><input type="radio" name="payment" value={value} checked={details.payment === value} onChange={(e) => update('payment', e.target.value)} className="size-4 accent-[#1e3a8a]" /><span>{label}</span>{value !== 'livraison' && <span className="ml-auto text-xs font-medium text-slate-500">au 78 168 01 45</span>}</label>)}</fieldset>
-              <label className="flex flex-col gap-1.5 text-xs font-semibold text-slate-700">Code promo<input value={details.promo} onChange={(e) => update('promo', e.target.value)} placeholder="Ex. RENTREE2025" className="rounded-xl border border-slate-200 px-3 py-3 text-sm font-normal uppercase outline-none focus:border-[#1e3a8a] focus:ring-2 focus:ring-blue-100" /></label>
               <button type="submit" className="flex items-center justify-center gap-2 rounded-xl bg-[#1e3a8a] px-4 py-4 text-sm font-extrabold text-white transition hover:bg-[#172f72]"><MessageMark /> Confirmer sur WhatsApp <ArrowRight aria-hidden="true" className="size-4" /></button>
               <p className="text-center text-[11px] leading-relaxed text-slate-500">Votre commande sera envoyée à notre équipe pour confirmation. Le paiement sera convenu directement sur WhatsApp.</p>
             </form>
@@ -307,7 +305,7 @@ export default function SchoolBoxStorefront({ products }: { products: SchoolBoxP
   const [entries, setEntries] = useState<CartEntry[] | null>(null)
   const [cartOpen, setCartOpen] = useState(false)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [details, setDetails] = useState<CheckoutDetails>({ parent: '', phone: '', address: '', grade: '', school: '', payment: 'wave', promo: '' })
+  const [details, setDetails] = useState<CheckoutDetails>({ parent: '', phone: '', address: '', grade: '', school: '', payment: 'wave' })
 
   useEffect(() => {
     try {
