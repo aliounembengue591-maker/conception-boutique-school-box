@@ -46,14 +46,62 @@ const kitContents: Record<string, string[]> = {
   'kit-universitaire': ['Sac ou pochette pour les cours', 'Cahiers et bloc-notes', 'Stylos, surligneurs et classeur', 'Chemises et trousse', 'Indispensables du campus'],
 }
 
-const builderProducts = [
-  { id: 'sac-maternelle', group: 'Sacs à dos par classe', name: 'Petit sac maternelle', price: 6500, image: '/kit-maternelle.png' },
-  { id: 'sac-ci-cp', group: 'Sacs à dos par classe', name: 'Sac primaire CI-CP', price: 7000, image: '/kit-ci-cp.png' },
-  { id: 'sac-ce1-cm2', group: 'Sacs à dos par classe', name: 'Sac primaire CE1-CM2', price: 8500, image: '/kit-ce1-cm2.png' },
-  { id: 'sac-college', group: 'Sacs à dos par classe', name: 'Sac collège renforcé', price: 10000, image: '/kit-college.png' },
-  { id: 'sac-lycee', group: 'Sacs à dos par classe', name: 'Sac lycée grand format', price: 11500, image: '/kit-lycee.png' },
-  { id: 'sac-universitaire', group: 'Sacs à dos par classe', name: 'Sac universitaire ordinateur', price: 13500, image: '/kit-universite.png' },
-  { id: 'sac-leger', group: 'Sacs à dos par classe', name: 'Sac à dos léger', price: 6500, image: '/product-sac.png' },
+type BuilderProduct = { id: string; group: string; name: string; price: number; image: string; grade?: string }
+
+const gradeOptions = ['CI', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6e', '5e', '4e', '3e', 'Seconde', 'Première', 'Terminale']
+
+const bagOptions: BuilderProduct[] = [
+  { id: 'bag-primary-cat', group: 'Sac primaire · 4 000 F', name: 'Sac enfant rose avec chat', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-fHizuHKWuzyZmWAN1FYcGAfiCiC2Fr.png' },
+  { id: 'bag-primary-pastel', group: 'Sac primaire · 4 000 F', name: 'Sac pastel multi-poches · rose ou lavande', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-yn5g4bfd8Bpwb7ZsOJsRbUJtu0Zbkj.png' },
+  { id: 'bag-primary-heroes', group: 'Sac primaire · 4 000 F', name: 'Sac imprimé héros · plusieurs modèles', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-7LEJgP6zboBQ1wlhS4VHgdOP86uZGi.png' },
+  { id: 'bag-primary-rainbow', group: 'Sac primaire · 4 000 F', name: 'Sac rose et bleu arc-en-ciel', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-iYgNOahBJ2MxBH9y5N6fWaJcaMbywa.png' },
+  { id: 'bag-primary-pink-navy', group: 'Sac primaire · 4 000 F', name: 'Sac à rabat rose et bleu marine', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-3dSvZupaYD4zqfqGRw4GG9oW56Wbo9.png' },
+  { id: 'bag-primary-pink-set', group: 'Sac primaire · 4 000 F', name: 'Sac rose imprimé · ensemble assorti', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2N9A7kOS8QwlldQVb2ZhOpu7nSH0U2.png' },
+  { id: 'bag-college-multipocket', group: 'Sac collège · 5 500 F', name: 'Sac multi-poches · coloris au choix', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-gG5epXHjig4VcxfzHwgxK3jrUXYu1g.png' },
+  { id: 'bag-college-pink', group: 'Sac collège · 5 500 F', name: 'Sac rose renforcé multi-compartiments', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-zptaosjoaD22HLZshbDi4Bdo9UQUmj.png' },
+  { id: 'bag-college-pink-simple', group: 'Sac collège · 5 500 F', name: 'Sac rose classique', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2ULyLvjD8kHHWq8gP55PnmqZJs9xki.png' },
+  { id: 'bag-college-dark-set', group: 'Sac collège · 5 500 F', name: 'Sac noir grand format multi-compartiments', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-lE19ywvCerLFJrioyVOD2Nhanr9Nuc.png' },
+  { id: 'bag-college-colors', group: 'Sac collège · 5 500 F', name: 'Sac classique · plusieurs coloris', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-YVMtOrB1Pc1pLLTi85iMod55g4wGCc.png' },
+  { id: 'bag-college-burgundy', group: 'Sac collège · 5 500 F', name: 'Sac bordeaux à poche frontale', price: 5500, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-GUsRpNE0mL1lgGuNUci2jL8PmIYhvQ.png' },
+  { id: 'bag-lycee-black', group: 'Sac lycée · 8 000 F', name: 'Sac à dos noir classique', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-LHl9vFGAcCS1C6R59dMQgyFRhw1ZZx.png' },
+  { id: 'bag-lycee-navy', group: 'Sac lycée · 8 000 F', name: 'Sac bleu marine avec détails camel', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0lPTNOf0wVmjfEhmpCqDzbBvHKuNkN.png' },
+  { id: 'bag-lycee-tech', group: 'Sac lycée · 8 000 F', name: 'Sac noir grand format', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-0c3CRs0tly87zRWTBH1Hf2wLVj3IBk.png' },
+  { id: 'bag-lycee-flap', group: 'Sac lycée · 8 000 F', name: 'Sac noir à rabat style urbain', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-YXwDcU8WeT5owKCKv3cuITz9Avphom.png' },
+  { id: 'bag-lycee-rose', group: 'Sac lycée · 8 000 F', name: 'Sac rose poudré à poches', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-O2PttVqaqV7782q9U52uFoi9f3eZC9.png' },
+  { id: 'bag-lycee-leather', group: 'Sac lycée · 8 000 F', name: 'Sac noir finition brillante', price: 8000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-2K8zOjOaJAUokK4iqsQJztfwhVkE8J.png' },
+]
+
+const bookOptions: BuilderProduct[] = [
+  { id: 'book-ci-lecture', grade: 'CI', group: 'Livres et cahiers · CI', name: 'Lecture, langage et découverte', price: 2500, image: '/product-livres.png' },
+  { id: 'book-ci-maths', grade: 'CI', group: 'Livres et cahiers · CI', name: 'Activités de mathématiques · CI', price: 2500, image: '/product-livres.png' },
+  { id: 'book-ci-ecriture', grade: 'CI', group: 'Livres et cahiers · CI', name: 'Graphisme et pré-écriture', price: 2000, image: '/product-livres.png' },
+  { id: 'book-cp-lecture', grade: 'CP', group: 'Livres et cahiers · CP', name: 'Lecture et syllabes · CP', price: 2800, image: '/product-livres.png' },
+  { id: 'book-cp-maths', grade: 'CP', group: 'Livres et cahiers · CP', name: 'Activités de mathématiques · CP', price: 2800, image: '/product-livres.png' },
+  { id: 'book-cp-ecriture', grade: 'CP', group: 'Livres et cahiers · CP', name: 'Écriture et expression française', price: 2200, image: '/product-livres.png' },
+  ...(['CE1', 'CE2', 'CM1', 'CM2'] as const).flatMap((grade) => {
+    const upperPrimary = grade === 'CM1' || grade === 'CM2'
+    return [
+      { id: `book-${grade.toLowerCase()}-french`, grade, group: `Livres et cahiers · ${grade}`, name: `Français, lecture et grammaire · ${grade}`, price: upperPrimary ? 3500 : 3000, image: '/product-livres.png' },
+      { id: `book-${grade.toLowerCase()}-maths`, grade, group: `Livres et cahiers · ${grade}`, name: `Activités de mathématiques · ${grade}`, price: upperPrimary ? 4000 : 3200, image: '/product-livres.png' },
+      { id: `book-${grade.toLowerCase()}-discovery`, grade, group: `Livres et cahiers · ${grade}`, name: `Sciences et découverte du monde · ${grade}`, price: upperPrimary ? 3200 : 2800, image: '/product-livres.png' },
+    ]
+  }),
+  ...(['6e', '5e', '4e', '3e'] as const).flatMap((grade) => [
+    { id: `book-${grade}-french`, grade, group: `Livres et cahiers · ${grade}`, name: `Français et grammaire · ${grade}`, price: 4500, image: '/product-livres.png' },
+    { id: `book-${grade}-maths`, grade, group: `Livres et cahiers · ${grade}`, name: `Mathématiques · ${grade}`, price: 5000, image: '/product-livres.png' },
+    { id: `book-${grade}-english`, grade, group: `Livres et cahiers · ${grade}`, name: `Anglais · ${grade}`, price: 3500, image: '/product-livres.png' },
+    { id: `book-${grade}-history`, grade, group: `Livres et cahiers · ${grade}`, name: `Histoire-géographie · ${grade}`, price: 4000, image: '/product-livres.png' },
+    { id: `book-${grade}-science`, grade, group: `Livres et cahiers · ${grade}`, name: `Sciences · ${grade}`, price: 4500, image: '/product-livres.png' },
+  ]),
+  ...(['Seconde', 'Première', 'Terminale'] as const).flatMap((grade) => [
+    { id: `book-${grade.toLowerCase()}-french`, grade, group: `Livres et cahiers · ${grade}`, name: `Français et littérature · ${grade}`, price: 5000, image: '/product-livres.png' },
+    { id: `book-${grade.toLowerCase()}-maths`, grade, group: `Livres et cahiers · ${grade}`, name: `Mathématiques · ${grade}`, price: 5500, image: '/product-livres.png' },
+    { id: `book-${grade.toLowerCase()}-english`, grade, group: `Livres et cahiers · ${grade}`, name: `Anglais · ${grade}`, price: 4000, image: '/product-livres.png' },
+    { id: `book-${grade.toLowerCase()}-sciences`, grade, group: `Livres et cahiers · ${grade}`, name: `Sciences selon la série · ${grade}`, price: 5000, image: '/product-livres.png' },
+  ]),
+]
+
+const supplyOptions: BuilderProduct[] = [
   { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500, image: '/product-cahiers.png' },
   { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000, image: '/product-cahiers.png' },
   { id: 'cahier-300', group: 'Cahiers', name: 'Lot de 5 cahiers 300 pages', price: 5500, image: '/product-cahiers.png' },
@@ -71,18 +119,19 @@ const builderProducts = [
   { id: 'pochettes', group: 'Trousses et rangement', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png' },
   { id: 'classeur', group: 'Trousses et rangement', name: 'Classeur avec intercalaires', price: 3500, image: '/product-trousse.png' },
   { id: 'protege-cahiers', group: 'Trousses et rangement', name: 'Lot de protège-cahiers', price: 1500, image: '/product-trousse.png' },
-  { id: 'livre-eveil', group: 'Livres par classe', name: 'Maternelle · éveil et coloriage', price: 2500, image: '/product-livres.png' },
-  { id: 'livre-graphisme', group: 'Livres par classe', name: 'Maternelle · graphisme et pré-écriture', price: 2000, image: '/product-livres.png' },
-  { id: 'livre-lecture-ci-cp', group: 'Livres par classe', name: 'CI-CP · lecture et syllabes', price: 3000, image: '/product-livres.png' },
-  { id: 'livre-maths-ci-cp', group: 'Livres par classe', name: 'CI-CP · activités de mathématiques', price: 2800, image: '/product-livres.png' },
-  { id: 'livre-lecture-ce1-cm2', group: 'Livres par classe', name: 'CE1-CM2 · lecture et compréhension', price: 3500, image: '/product-livres.png' },
-  { id: 'livre-maths-cm', group: 'Livres par classe', name: 'CM1-CM2 · activités de mathématiques', price: 4000, image: '/product-livres.png' },
-  { id: 'livre-francais-college', group: 'Livres par classe', name: 'Collège · français et grammaire', price: 4500, image: '/product-livres.png' },
-  { id: 'livre-maths-college', group: 'Livres par classe', name: 'Collège · activités de mathématiques', price: 5000, image: '/product-livres.png' },
-  { id: 'livre-anglais-college', group: 'Livres par classe', name: 'Collège · cahier d’anglais', price: 3500, image: '/product-livres.png' },
-  { id: 'livre-maths-lycee', group: 'Livres par classe', name: 'Lycée · activités de mathématiques', price: 5500, image: '/product-livres.png' },
-  { id: 'livre-philo-lycee', group: 'Livres par classe', name: 'Lycée · français et philosophie', price: 5000, image: '/product-livres.png' },
 ]
+
+const builderProducts: BuilderProduct[] = [...bagOptions, ...supplyOptions, ...bookOptions]
+
+function isBagProduct(item: BuilderProduct) {
+  return item.group.startsWith('Sac ')
+}
+
+function isBookProduct(item: BuilderProduct) {
+  return item.grade !== undefined
+}
+
+const bookCatalogNote = 'Livres et cahiers classés par niveau, de CI à Terminale. Les éditions exactes et la disponibilité sont confirmées avec vous avant préparation.'
 
 const steps = [
   { icon: ShoppingBag, title: 'Vous choisissez', text: 'Sélectionnez un kit complet ou composez le vôtre en quelques clics.' },
@@ -178,11 +227,20 @@ function ProductCard({ product, onAdd }: { product: SchoolBoxProduct; onAdd: (pr
 
 function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
   const [selected, setSelected] = useState<string[]>([])
-  const groups = [...new Set(builderProducts.map((item) => item.group))]
-  const total = builderProducts.reduce((sum, item) => sum + (selected.includes(item.id) ? item.price : 0), 0)
+  const [selectedGrade, setSelectedGrade] = useState('CI')
+  const visibleProducts = builderProducts.filter((item) => !isBookProduct(item) || item.grade === selectedGrade)
+  const groups = [...new Set(visibleProducts.map((item) => item.group))]
+  const selectedProducts = builderProducts.filter((item) => selected.includes(item.id))
+  const total = selectedProducts.reduce((sum, item) => sum + item.price, 0)
 
-  function toggle(id: string) {
-    setSelected((current) => current.includes(id) ? current.filter((item) => item !== id) : [...current, id])
+  function toggle(item: BuilderProduct) {
+    setSelected((current) => {
+      if (current.includes(item.id)) return current.filter((id) => id !== item.id)
+      if (isBagProduct(item)) {
+        return [...current.filter((id) => !isBagProduct(builderProducts.find((product) => product.id === id)!)), item.id]
+      }
+      return [...current, item.id]
+    })
   }
 
   return (
@@ -191,14 +249,20 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
         <div className="lg:sticky lg:top-32">
           <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> À votre façon</span>
           <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#1e3a8a] sm:text-4xl">Crée ton kit<br />sur mesure.</h2>
-          <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez seulement ce qu’il vous faut. Ajoutez des fournitures à la carte et suivez votre budget en direct.</p>
+          <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez la classe, un sac et les fournitures utiles. Le total se met à jour au fur et à mesure.</p>
+          <label htmlFor="kit-grade" className="mt-6 flex flex-col gap-2 text-sm font-bold text-[#1e3a8a]">Classe de l’élève
+            <select id="kit-grade" value={selectedGrade} onChange={(event) => setSelectedGrade(event.target.value)} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#1e3a8a] focus:ring-2 focus:ring-blue-100">
+              {gradeOptions.map((grade) => <option key={grade} value={grade}>{grade}</option>)}
+            </select>
+          </label>
+          <p className="mt-3 text-xs leading-5 text-slate-500">{bookCatalogNote}</p>
           <div className="mt-8 rounded-3xl bg-[#1e3a8a] p-6 text-white shadow-xl shadow-blue-950/10">
             <div className="flex items-start justify-between gap-4">
               <div><p className="text-xs font-semibold text-blue-100">Votre sélection</p><p className="mt-2 text-3xl font-black tracking-tight">{formatXof(total)} <span className="text-base">F</span></p></div>
               <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10"><ShoppingBag aria-hidden="true" className="size-5 text-[#fbbf24]" /></span>
             </div>
-            <p className="mt-3 text-xs text-blue-100">{selected.length} article{selected.length !== 1 ? 's' : ''} sélectionné{selected.length !== 1 ? 's' : ''} · livraison Dakar offerte</p>
-            <button disabled={selected.length === 0} onClick={() => onAdd({ title: 'Kit sur mesure', selections: builderProducts.filter((item) => selected.includes(item.id)).map((item) => item.name), unitPrice: total })} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#fbbf24] px-4 py-3.5 text-sm font-extrabold text-[#1e3a8a] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-50">
+            <p className="mt-3 text-xs text-blue-100">{selectedProducts.length} article{selectedProducts.length !== 1 ? 's' : ''} sélectionné{selectedProducts.length !== 1 ? 's' : ''} · livraison Dakar offerte</p>
+            <button disabled={selected.length === 0} onClick={() => onAdd({ title: `Kit sur mesure · ${selectedGrade}`, selections: selectedProducts.map((item) => item.name), unitPrice: total })} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#fbbf24] px-4 py-3.5 text-sm font-extrabold text-[#1e3a8a] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-50">
               Ajouter ma sélection <ArrowRight aria-hidden="true" className="size-4" />
             </button>
           </div>
@@ -208,11 +272,12 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
             <fieldset key={group} className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
               <legend className="px-1 text-sm font-extrabold text-[#1e3a8a]">{group}</legend>
               <div className="mt-2 flex flex-col gap-3">
-                {builderProducts.filter((item) => item.group === group).map((item) => {
+                {visibleProducts.filter((item) => item.group === group).map((item) => {
                   const checked = selected.includes(item.id)
+                  const isBag = isBagProduct(item)
                   return <label key={item.id} className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-3 transition ${checked ? 'border-[#1e3a8a] bg-[#f5f8ff]' : 'border-slate-100 hover:border-slate-300'}`}>
-                    <input type="checkbox" checked={checked} onChange={() => toggle(item.id)} className="size-4 shrink-0 accent-[#1e3a8a]" />
-                    <Image src={item.image} alt="" width={56} height={56} unoptimized className="size-14 shrink-0 rounded-xl bg-[#f5f8ff] object-cover" />
+                    <input type={isBag ? 'radio' : 'checkbox'} name={isBag ? 'schoolbag-choice' : undefined} checked={checked} onChange={() => toggle(item)} className="size-4 shrink-0 accent-[#1e3a8a]" />
+                    <Image src={item.image} alt={item.name} width={56} height={56} unoptimized className="size-14 shrink-0 rounded-xl bg-[#f5f8ff] object-contain p-1" />
                     <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[13px] font-semibold leading-snug text-slate-700">{item.name}</span><span className="text-xs font-bold text-[#1e3a8a]">{formatXof(item.price)} F</span></span>
                   </label>
                 })}
