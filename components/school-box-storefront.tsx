@@ -46,9 +46,15 @@ const kitContents: Record<string, string[]> = {
   'kit-universitaire': ['Sac ou pochette pour les cours', 'Cahiers et bloc-notes', 'Stylos, surligneurs et classeur', 'Chemises et trousse', 'Indispensables du campus'],
 }
 
-type BuilderProduct = { id: string; group: string; name: string; price: number; image: string; grade?: string }
+type BuilderProduct = { id: string; group: string; name: string; price: number; image: string; grade?: string; grades?: string[] }
 
 const gradeOptions = ['CI', 'CP', 'CE1', 'CE2', 'CM1', 'CM2', '6e', '5e', '4e', '3e', 'Seconde', 'Première', 'Terminale']
+const primaryGrades = gradeOptions.slice(0, 6)
+const secondaryGrades = gradeOptions.slice(6, 10)
+const highSchoolGrades = gradeOptions.slice(10)
+const middleAndHighSchoolGrades = [...secondaryGrades, ...highSchoolGrades]
+const upperPrimaryGrades = gradeOptions.slice(2, 6)
+const postPrimaryGrades = gradeOptions.slice(1)
 
 const bagOptions: BuilderProduct[] = [
   { id: 'bag-primary-cat', group: 'Sac primaire · 4 000 F', name: 'Sac enfant rose avec chat', price: 4000, image: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/image-fHizuHKWuzyZmWAN1FYcGAfiCiC2Fr.png' },
@@ -102,34 +108,26 @@ const bookOptions: BuilderProduct[] = [
 ]
 
 const supplyOptions: BuilderProduct[] = [
-  { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500, image: '/product-cahiers.png' },
-  { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000, image: '/product-cahiers.png' },
-  { id: 'cahier-300', group: 'Cahiers', name: 'Lot de 5 cahiers 300 pages', price: 5500, image: '/product-cahiers.png' },
-  { id: 'cahier-dessin', group: 'Cahiers', name: 'Cahier de dessin et coloriage', price: 1800, image: '/product-cahiers.png' },
-  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes pour les cours', price: 1500, image: '/product-cahiers.png' },
-  { id: 'stylos', group: 'Écriture', name: 'Lot de 6 stylos assortis', price: 1800, image: '/product-stylos.png' },
-  { id: 'crayons', group: 'Écriture', name: 'Crayons HB ×5 + gomme', price: 1200, image: '/product-stylos.png' },
-  { id: 'couleurs', group: 'Écriture', name: 'Crayons de couleur ×12', price: 2000, image: '/product-stylos.png' },
-  { id: 'surligneurs', group: 'Écriture', name: 'Lot de 4 surligneurs', price: 2200, image: '/product-stylos.png' },
-  { id: 'geometrie', group: 'Géométrie', name: 'Kit de géométrie complet', price: 2500, image: '/product-geometrie.png' },
-  { id: 'regle', group: 'Géométrie', name: 'Règle et équerres', price: 1200, image: '/product-geometrie.png' },
-  { id: 'calculatrice', group: 'Géométrie', name: 'Calculatrice scolaire', price: 4500, image: '/product-geometrie.png' },
-  { id: 'ardoise', group: 'Géométrie', name: 'Ardoise + feutres', price: 1500, image: '/product-geometrie.png' },
-  { id: 'trousse', group: 'Trousses et rangement', name: 'Trousse scolaire', price: 2000, image: '/product-trousse.png' },
-  { id: 'pochettes', group: 'Trousses et rangement', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png' },
-  { id: 'classeur', group: 'Trousses et rangement', name: 'Classeur avec intercalaires', price: 3500, image: '/product-trousse.png' },
-  { id: 'protege-cahiers', group: 'Trousses et rangement', name: 'Lot de protège-cahiers', price: 1500, image: '/product-trousse.png' },
+  { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500, image: '/product-cahiers.png', grades: primaryGrades },
+  { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000, image: '/product-cahiers.png', grades: [...upperPrimaryGrades, ...middleAndHighSchoolGrades] },
+  { id: 'cahier-300', group: 'Cahiers', name: 'Lot de 5 cahiers 300 pages', price: 5500, image: '/product-cahiers.png', grades: middleAndHighSchoolGrades },
+  { id: 'cahier-dessin', group: 'Cahiers', name: 'Cahier de dessin et coloriage', price: 1800, image: '/product-cahiers.png', grades: primaryGrades },
+  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes pour les cours', price: 1500, image: '/product-cahiers.png', grades: middleAndHighSchoolGrades },
+  { id: 'stylos', group: 'Écriture', name: 'Lot de 6 stylos assortis', price: 1800, image: '/product-stylos.png', grades: postPrimaryGrades },
+  { id: 'crayons', group: 'Écriture', name: 'Crayons HB ×5 + gomme', price: 1200, image: '/product-stylos.png', grades: primaryGrades },
+  { id: 'couleurs', group: 'Écriture', name: 'Crayons de couleur ×12', price: 2000, image: '/product-stylos.png', grades: primaryGrades },
+  { id: 'surligneurs', group: 'Écriture', name: 'Lot de 4 surligneurs', price: 2200, image: '/product-stylos.png', grades: [...upperPrimaryGrades, ...middleAndHighSchoolGrades] },
+  { id: 'geometrie', group: 'Géométrie', name: 'Kit de géométrie complet', price: 2500, image: '/product-geometrie.png', grades: postPrimaryGrades },
+  { id: 'regle', group: 'Géométrie', name: 'Règle et équerres', price: 1200, image: '/product-geometrie.png', grades: postPrimaryGrades },
+  { id: 'calculatrice', group: 'Géométrie', name: 'Calculatrice scolaire', price: 4500, image: '/product-geometrie.png', grades: middleAndHighSchoolGrades },
+  { id: 'ardoise', group: 'Géométrie', name: 'Ardoise + feutres', price: 1500, image: '/product-geometrie.png', grades: ['CI', 'CP'] },
+  { id: 'trousse', group: 'Trousses et rangement', name: 'Trousse scolaire', price: 2000, image: '/product-trousse.png', grades: postPrimaryGrades },
+  { id: 'pochettes', group: 'Trousses et rangement', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png', grades: postPrimaryGrades },
+  { id: 'classeur', group: 'Trousses et rangement', name: 'Classeur avec intercalaires', price: 3500, image: '/product-trousse.png', grades: middleAndHighSchoolGrades },
+  { id: 'protege-cahiers', group: 'Trousses et rangement', name: 'Lot de protège-cahiers', price: 1500, image: '/product-trousse.png', grades: primaryGrades },
 ]
 
-const builderProducts: BuilderProduct[] = [...bagOptions, ...supplyOptions, ...bookOptions]
-
-function isBagProduct(item: BuilderProduct) {
-  return item.group.startsWith('Sac ')
-}
-
-function isBookProduct(item: BuilderProduct) {
-  return item.grade !== undefined
-}
+const builderProducts: BuilderProduct[] = [...supplyOptions, ...bookOptions]
 
 const bookCatalogNote = 'Livres et cahiers classés par niveau, de CI à Terminale. Les éditions exactes et la disponibilité sont confirmées avec vous avant préparation.'
 
@@ -139,7 +137,7 @@ const steps = [
   { icon: Truck, title: 'Livré chez vous', text: 'Votre commande arrive à domicile à Dakar et en banlieue.' },
 ]
 
-type CustomKit = { title: string; selections: string[]; unitPrice: number }
+type CustomKit = { title: string; selections: string[]; unitPrice: number; image?: string }
 type CartEntry = { key: string; productId?: string; quantity: number; customKit?: CustomKit }
 type CheckoutDetails = { parent: string; phone: string; address: string; grade: string; school: string; payment: string }
 
@@ -225,22 +223,60 @@ function ProductCard({ product, onAdd }: { product: SchoolBoxProduct; onAdd: (pr
   )
 }
 
+function BagShelf({ onAdd }: { onAdd: (bag: CustomKit) => void }) {
+  return (
+    <section aria-labelledby="bags-title" className="mb-12 rounded-[28px] border border-amber-100 bg-[#fffaf0] p-5 sm:p-7">
+      <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+        <div>
+          <span className="text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#9a6b16]">Choisissez votre modèle</span>
+          <h3 id="bags-title" className="mt-1 text-xl font-black tracking-tight text-[#1e3a8a] sm:text-2xl">Nos sacs, vendus à l’unité</h3>
+          <p className="mt-1 text-sm text-slate-600">Faites défiler les modèles pour choisir un sac à ajouter seul au panier.</p>
+        </div>
+        <span className="shrink-0 rounded-full bg-white px-3 py-1.5 text-xs font-bold text-[#1e3a8a]">Primaire · 4 000 F · Collège · 5 500 F · Lycée · 8 000 F</span>
+      </div>
+      <div className="relative mt-5 pt-5">
+        <div aria-hidden="true" className="absolute left-0 right-0 top-2 border-t-2 border-dashed border-amber-800/45" />
+        <div className="flex snap-x gap-4 overflow-x-auto pb-3">
+          {bagOptions.map((bag) => (
+            <article key={bag.id} className="relative flex w-[220px] shrink-0 snap-start flex-col overflow-hidden rounded-2xl border border-amber-100 bg-white shadow-sm">
+              <span aria-hidden="true" className="absolute left-1/2 top-0 z-10 h-5 w-1 -translate-x-1/2 rounded-b bg-amber-700/70" />
+              <div className="relative aspect-[1.15/1] overflow-hidden bg-[#f8f8f5]">
+                <Image src={bag.image} alt={bag.name} fill sizes="220px" unoptimized className="object-contain p-3" />
+              </div>
+              <div className="flex flex-1 flex-col p-4">
+                <span className="text-[10px] font-extrabold uppercase tracking-wider text-slate-500">{bag.group}</span>
+                <h4 className="mt-1 flex-1 text-sm font-bold leading-snug text-[#1e3a8a]">{bag.name}</h4>
+                <div className="mt-3 flex items-center justify-between gap-2">
+                  <span className="text-sm font-black text-[#1e3a8a]">{formatXof(bag.price)} F</span>
+                  <button onClick={() => onAdd({ title: bag.name, selections: ['Sac vendu individuellement'], unitPrice: bag.price, image: bag.image })} className="rounded-lg bg-[#1e3a8a] px-3 py-2 text-xs font-bold text-white transition hover:bg-[#172f72]">Acheter</button>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}
+
 function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
   const [selected, setSelected] = useState<string[]>([])
-  const [selectedGrade, setSelectedGrade] = useState('CI')
-  const visibleProducts = builderProducts.filter((item) => !isBookProduct(item) || item.grade === selectedGrade)
+  const [selectedGrade, setSelectedGrade] = useState('')
+  const visibleProducts = selectedGrade ? builderProducts.filter((item) => item.grade === selectedGrade || item.grades?.includes(selectedGrade)) : []
   const groups = [...new Set(visibleProducts.map((item) => item.group))]
-  const selectedProducts = builderProducts.filter((item) => selected.includes(item.id))
+  const selectedProducts = builderProducts.filter((item) => selected.includes(item.id) && (item.grade === selectedGrade || item.grades?.includes(selectedGrade)))
   const total = selectedProducts.reduce((sum, item) => sum + item.price, 0)
 
+  function changeGrade(grade: string) {
+    setSelectedGrade(grade)
+    setSelected((current) => current.filter((id) => {
+      const product = builderProducts.find((item) => item.id === id)
+      return product?.grade === grade || product?.grades?.includes(grade)
+    }))
+  }
+
   function toggle(item: BuilderProduct) {
-    setSelected((current) => {
-      if (current.includes(item.id)) return current.filter((id) => id !== item.id)
-      if (isBagProduct(item)) {
-        return [...current.filter((id) => !isBagProduct(builderProducts.find((product) => product.id === id)!)), item.id]
-      }
-      return [...current, item.id]
-    })
+    setSelected((current) => current.includes(item.id) ? current.filter((id) => id !== item.id) : [...current, item.id])
   }
 
   return (
@@ -249,9 +285,10 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
         <div className="lg:sticky lg:top-32">
           <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> À votre façon</span>
           <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#1e3a8a] sm:text-4xl">Crée ton kit<br />sur mesure.</h2>
-          <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez la classe, un sac et les fournitures utiles. Le total se met à jour au fur et à mesure.</p>
+          <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez d’abord la classe de l’élève : seules les fournitures et les livres de ce niveau seront proposés.</p>
           <label htmlFor="kit-grade" className="mt-6 flex flex-col gap-2 text-sm font-bold text-[#1e3a8a]">Classe de l’élève
-            <select id="kit-grade" value={selectedGrade} onChange={(event) => setSelectedGrade(event.target.value)} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#1e3a8a] focus:ring-2 focus:ring-blue-100">
+            <select id="kit-grade" value={selectedGrade} onChange={(event) => changeGrade(event.target.value)} className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm font-semibold text-slate-700 outline-none focus:border-[#1e3a8a] focus:ring-2 focus:ring-blue-100">
+              <option value="">Choisir une classe</option>
               {gradeOptions.map((grade) => <option key={grade} value={grade}>{grade}</option>)}
             </select>
           </label>
@@ -262,28 +299,27 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
               <span className="flex size-12 items-center justify-center rounded-2xl bg-white/10"><ShoppingBag aria-hidden="true" className="size-5 text-[#fbbf24]" /></span>
             </div>
             <p className="mt-3 text-xs text-blue-100">{selectedProducts.length} article{selectedProducts.length !== 1 ? 's' : ''} sélectionné{selectedProducts.length !== 1 ? 's' : ''} · livraison Dakar offerte</p>
-            <button disabled={selected.length === 0} onClick={() => onAdd({ title: `Kit sur mesure · ${selectedGrade}`, selections: selectedProducts.map((item) => item.name), unitPrice: total })} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#fbbf24] px-4 py-3.5 text-sm font-extrabold text-[#1e3a8a] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-50">
-              Ajouter ma sélection <ArrowRight aria-hidden="true" className="size-4" />
+            <button disabled={selectedProducts.length === 0} onClick={() => onAdd({ title: `Kit sur mesure · ${selectedGrade}`, selections: selectedProducts.map((item) => item.name), unitPrice: total })} className="mt-5 flex w-full items-center justify-center gap-2 rounded-xl bg-[#fbbf24] px-4 py-3.5 text-sm font-extrabold text-[#1e3a8a] transition hover:bg-amber-300 disabled:cursor-not-allowed disabled:opacity-50">
+              Créer mon kit <ArrowRight aria-hidden="true" className="size-4" />
             </button>
           </div>
         </div>
         <div className="grid gap-6 sm:grid-cols-2">
-          {groups.map((group) => (
+          {selectedGrade ? groups.map((group) => (
             <fieldset key={group} className="rounded-3xl border border-slate-200 bg-white p-5 sm:p-6">
               <legend className="px-1 text-sm font-extrabold text-[#1e3a8a]">{group}</legend>
               <div className="mt-2 flex flex-col gap-3">
                 {visibleProducts.filter((item) => item.group === group).map((item) => {
                   const checked = selected.includes(item.id)
-                  const isBag = isBagProduct(item)
                   return <label key={item.id} className={`flex cursor-pointer items-center gap-3 rounded-2xl border p-3 transition ${checked ? 'border-[#1e3a8a] bg-[#f5f8ff]' : 'border-slate-100 hover:border-slate-300'}`}>
-                    <input type={isBag ? 'radio' : 'checkbox'} name={isBag ? 'schoolbag-choice' : undefined} checked={checked} onChange={() => toggle(item)} className="size-4 shrink-0 accent-[#1e3a8a]" />
+                    <input type="checkbox" checked={checked} onChange={() => toggle(item)} className="size-4 shrink-0 accent-[#1e3a8a]" />
                     <Image src={item.image} alt={item.name} width={56} height={56} unoptimized className="size-14 shrink-0 rounded-xl bg-[#f5f8ff] object-contain p-1" />
                     <span className="flex min-w-0 flex-1 flex-col gap-1"><span className="text-[13px] font-semibold leading-snug text-slate-700">{item.name}</span><span className="text-xs font-bold text-[#1e3a8a]">{formatXof(item.price)} F</span></span>
                   </label>
                 })}
               </div>
             </fieldset>
-          ))}
+          )) : <p role="status" className="rounded-3xl border border-dashed border-slate-300 bg-white p-8 text-center text-sm font-semibold text-slate-600 sm:col-span-2">Choisissez la classe de l’élève pour afficher les fournitures adaptées.</p>}
         </div>
       </div>
     </section>
@@ -348,7 +384,7 @@ function CartDrawer({
                 const product = entry.productId ? byId.get(entry.productId) : undefined
                 const title = entry.customKit?.title ?? product?.title ?? 'Kit scolaire'
                 const price = entry.customKit?.unitPrice ?? product?.priceXof ?? 0
-                const image = entry.customKit ? '/schoolbox-hero.png' : product ? imageFor(product) : '/schoolbox-hero.png'
+                const image = entry.customKit?.image ?? (entry.customKit ? '/schoolbox-hero.png' : product ? imageFor(product) : '/schoolbox-hero.png')
                 const limit = product?.variant?.quantityAvailable ?? 100
                 return <div key={entry.key} className="flex gap-4 rounded-2xl border border-slate-200 p-3.5">
                   <div className="relative size-[76px] shrink-0 overflow-hidden rounded-xl bg-[#f4f7fd]"><Image src={image} alt="" fill sizes="76px" className="object-cover" unoptimized /></div>
@@ -477,6 +513,7 @@ export default function SchoolBoxStorefront({ products }: { products: SchoolBoxP
       <section id="kits" className="scroll-mt-24 py-20 sm:py-24">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="mx-auto mb-11 max-w-2xl text-center sm:mb-14"><span className="text-xs font-extrabold uppercase tracking-[0.2em] text-[#1e3a8a]">Nos packs scolaires</span><h2 className="mt-3 text-3xl font-black tracking-[-0.05em] text-[#1e3a8a] sm:text-4xl">Un kit adapté à chaque classe</h2><p className="mt-3 text-sm leading-6 text-slate-600 sm:text-base">Les fournitures essentielles réunies dans un pack pratique. Choisissez le niveau, on s’occupe du reste.</p></div>
+          <BagShelf onAdd={addCustomKit} />
           {products.length > 0 ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">{products.map((product) => <ProductCard key={product.id} product={product} onAdd={addProduct} />)}</div> : <div className="rounded-3xl border border-dashed border-slate-300 p-10 text-center"><p className="font-bold text-[#1e3a8a]">Les kits seront bientôt disponibles.</p><p className="mt-2 text-sm text-slate-500">Écrivez-nous sur WhatsApp pour connaître les disponibilités.</p></div>}
         </div>
       </section>
