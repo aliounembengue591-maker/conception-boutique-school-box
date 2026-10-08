@@ -38,29 +38,50 @@ const fallbackImages: Record<string, string> = {
 }
 
 const kitContents: Record<string, string[]> = {
-  'kit-maternelle': ['Petit sac à dos', 'Cahiers de coloriage', 'Crayons de couleur ×12', 'Ardoise', 'Pâte à modeler'],
-  'kit-primaire-ci-cp': ['Sac à dos adapté au primaire', 'Cahiers essentiels', 'Crayons HB, gomme et taille-crayon', 'Crayons de couleur', 'Ardoise et petit matériel'],
-  'kit-primaire-ce1-cm2': ['Sac à dos résistant', 'Cahiers pour les matières essentielles', 'Stylos bleu, noir et rouge', 'Crayons HB et gomme', 'Kit de géométrie', 'Protège-cahiers et trousse'],
-  'kit-college': ['Sac à dos résistant', 'Cahiers 200p ×6', 'Stylos bleu, noir et rouge', 'Kit géométrie complet', 'Crayons HB', 'Pochettes et couvertures'],
-  'kit-lycee': ['Sac à dos de lycée', 'Cahiers grand format', 'Stylos bleu, noir et rouge', 'Matériel de géométrie', 'Chemises et protège-cahiers', 'Trousse et crayons HB'],
-  'kit-universitaire': ['Sac ou pochette pour les cours', 'Cahiers et bloc-notes', 'Stylos et surligneurs', 'Classeur et chemises', 'Trousse et matériel d’écriture', 'Indispensables du campus'],
+  'kit-maternelle': ['Petit sac à dos', 'Cahier de coloriage et d’éveil', 'Cahier de graphisme', 'Crayons de couleur ×12', 'Ardoise et pâte à modeler'],
+  'kit-primaire-ci-cp': ['Sac à dos adapté au primaire', 'Cahier de lecture CI-CP', 'Activités de mathématiques CI-CP', 'Cahier d’écriture et de graphisme', 'Crayons HB, couleurs et ardoise'],
+  'kit-primaire-ce1-cm2': ['Sac à dos résistant', 'Cahier de lecture CE1-CM2', 'Cahier de mathématiques CM1-CM2', 'Cahiers des matières essentielles', 'Stylos, géométrie et trousse'],
+  'kit-college': ['Sac à dos résistant', 'Cahiers 200p ×6', 'Cahier de français et grammaire', 'Cahier de mathématiques collège', 'Cahier d’anglais', 'Géométrie, stylos et trousse'],
+  'kit-lycee': ['Sac à dos de lycée', 'Cahiers grand format', 'Cahier de mathématiques lycée', 'Cahier de français et philosophie', 'Stylos, géométrie et rangement'],
+  'kit-universitaire': ['Sac ou pochette pour les cours', 'Cahiers et bloc-notes', 'Stylos, surligneurs et classeur', 'Chemises et trousse', 'Indispensables du campus'],
 }
 
 const builderProducts = [
-  { id: 'sac', group: 'Sacs', name: 'Sac à dos résistant', price: 9000, image: '/product-sac.png' },
-  { id: 'sac-leger', group: 'Sacs', name: 'Sac à dos léger', price: 6500, image: '/product-sac.png' },
+  { id: 'sac-maternelle', group: 'Sacs à dos par classe', name: 'Petit sac maternelle', price: 6500, image: '/kit-maternelle.png' },
+  { id: 'sac-ci-cp', group: 'Sacs à dos par classe', name: 'Sac primaire CI-CP', price: 7000, image: '/kit-ci-cp.png' },
+  { id: 'sac-ce1-cm2', group: 'Sacs à dos par classe', name: 'Sac primaire CE1-CM2', price: 8500, image: '/kit-ce1-cm2.png' },
+  { id: 'sac-college', group: 'Sacs à dos par classe', name: 'Sac collège renforcé', price: 10000, image: '/kit-college.png' },
+  { id: 'sac-lycee', group: 'Sacs à dos par classe', name: 'Sac lycée grand format', price: 11500, image: '/kit-lycee.png' },
+  { id: 'sac-universitaire', group: 'Sacs à dos par classe', name: 'Sac universitaire ordinateur', price: 13500, image: '/kit-universite.png' },
+  { id: 'sac-leger', group: 'Sacs à dos par classe', name: 'Sac à dos léger', price: 6500, image: '/product-sac.png' },
   { id: 'cahier-100', group: 'Cahiers', name: 'Lot de 5 cahiers 100 pages', price: 2500, image: '/product-cahiers.png' },
   { id: 'cahier-200', group: 'Cahiers', name: 'Lot de 5 cahiers 200 pages', price: 4000, image: '/product-cahiers.png' },
-  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes', price: 1500, image: '/product-cahiers.png' },
-  { id: 'stylos', group: 'Stylos', name: 'Lot de 6 stylos assortis', price: 1800, image: '/product-stylos.png' },
-  { id: 'crayons', group: 'Stylos', name: 'Crayons HB ×5 + gomme', price: 1200, image: '/product-stylos.png' },
-  { id: 'couleurs', group: 'Stylos', name: 'Crayons de couleur ×12', price: 2000, image: '/product-stylos.png' },
+  { id: 'cahier-300', group: 'Cahiers', name: 'Lot de 5 cahiers 300 pages', price: 5500, image: '/product-cahiers.png' },
+  { id: 'cahier-dessin', group: 'Cahiers', name: 'Cahier de dessin et coloriage', price: 1800, image: '/product-cahiers.png' },
+  { id: 'bloc', group: 'Cahiers', name: 'Bloc-notes pour les cours', price: 1500, image: '/product-cahiers.png' },
+  { id: 'stylos', group: 'Écriture', name: 'Lot de 6 stylos assortis', price: 1800, image: '/product-stylos.png' },
+  { id: 'crayons', group: 'Écriture', name: 'Crayons HB ×5 + gomme', price: 1200, image: '/product-stylos.png' },
+  { id: 'couleurs', group: 'Écriture', name: 'Crayons de couleur ×12', price: 2000, image: '/product-stylos.png' },
+  { id: 'surligneurs', group: 'Écriture', name: 'Lot de 4 surligneurs', price: 2200, image: '/product-stylos.png' },
   { id: 'geometrie', group: 'Géométrie', name: 'Kit de géométrie complet', price: 2500, image: '/product-geometrie.png' },
+  { id: 'regle', group: 'Géométrie', name: 'Règle et équerres', price: 1200, image: '/product-geometrie.png' },
+  { id: 'calculatrice', group: 'Géométrie', name: 'Calculatrice scolaire', price: 4500, image: '/product-geometrie.png' },
   { id: 'ardoise', group: 'Géométrie', name: 'Ardoise + feutres', price: 1500, image: '/product-geometrie.png' },
-  { id: 'trousse', group: 'Trousses', name: 'Trousse scolaire', price: 2000, image: '/product-trousse.png' },
-  { id: 'pochettes', group: 'Trousses', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png' },
-  { id: 'lecture', group: 'Livres', name: 'Livre de lecture', price: 3000, image: '/product-livres.png' },
-  { id: 'maths', group: 'Livres', name: 'Cahier d’activités de maths', price: 2500, image: '/product-livres.png' },
+  { id: 'trousse', group: 'Trousses et rangement', name: 'Trousse scolaire', price: 2000, image: '/product-trousse.png' },
+  { id: 'pochettes', group: 'Trousses et rangement', name: 'Lot de pochettes', price: 1000, image: '/product-trousse.png' },
+  { id: 'classeur', group: 'Trousses et rangement', name: 'Classeur avec intercalaires', price: 3500, image: '/product-trousse.png' },
+  { id: 'protege-cahiers', group: 'Trousses et rangement', name: 'Lot de protège-cahiers', price: 1500, image: '/product-trousse.png' },
+  { id: 'livre-eveil', group: 'Livres par classe', name: 'Maternelle · éveil et coloriage', price: 2500, image: '/product-livres.png' },
+  { id: 'livre-graphisme', group: 'Livres par classe', name: 'Maternelle · graphisme et pré-écriture', price: 2000, image: '/product-livres.png' },
+  { id: 'livre-lecture-ci-cp', group: 'Livres par classe', name: 'CI-CP · lecture et syllabes', price: 3000, image: '/product-livres.png' },
+  { id: 'livre-maths-ci-cp', group: 'Livres par classe', name: 'CI-CP · activités de mathématiques', price: 2800, image: '/product-livres.png' },
+  { id: 'livre-lecture-ce1-cm2', group: 'Livres par classe', name: 'CE1-CM2 · lecture et compréhension', price: 3500, image: '/product-livres.png' },
+  { id: 'livre-maths-cm', group: 'Livres par classe', name: 'CM1-CM2 · activités de mathématiques', price: 4000, image: '/product-livres.png' },
+  { id: 'livre-francais-college', group: 'Livres par classe', name: 'Collège · français et grammaire', price: 4500, image: '/product-livres.png' },
+  { id: 'livre-maths-college', group: 'Livres par classe', name: 'Collège · activités de mathématiques', price: 5000, image: '/product-livres.png' },
+  { id: 'livre-anglais-college', group: 'Livres par classe', name: 'Collège · cahier d’anglais', price: 3500, image: '/product-livres.png' },
+  { id: 'livre-maths-lycee', group: 'Livres par classe', name: 'Lycée · activités de mathématiques', price: 5500, image: '/product-livres.png' },
+  { id: 'livre-philo-lycee', group: 'Livres par classe', name: 'Lycée · français et philosophie', price: 5000, image: '/product-livres.png' },
 ]
 
 const steps = [
@@ -168,7 +189,7 @@ function CustomKitBuilder({ onAdd }: { onAdd: (kit: CustomKit) => void }) {
     <section id="sur-mesure" className="scroll-mt-24 bg-[#f5f8ff] py-20 sm:py-24">
       <div className="mx-auto grid max-w-7xl gap-12 px-4 sm:px-6 lg:grid-cols-[0.82fr_1.18fr] lg:items-start lg:px-8">
         <div className="lg:sticky lg:top-32">
-          <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> �� votre façon</span>
+          <span className="inline-flex items-center gap-2 rounded-full bg-[#fff2c8] px-3.5 py-2 text-xs font-bold text-[#1e3a8a]"><Sparkles aria-hidden="true" className="size-3.5" /> À votre façon</span>
           <h2 className="mt-5 text-3xl font-black leading-tight tracking-[-0.045em] text-[#1e3a8a] sm:text-4xl">Crée ton kit<br />sur mesure.</h2>
           <p className="mt-4 max-w-md text-[15px] leading-7 text-slate-600">Choisissez seulement ce qu’il vous faut. Ajoutez des fournitures à la carte et suivez votre budget en direct.</p>
           <div className="mt-8 rounded-3xl bg-[#1e3a8a] p-6 text-white shadow-xl shadow-blue-950/10">
